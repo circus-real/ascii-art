@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ASCII Art Generator</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <body>
+    <h1>ASCII Art Generator</h1>
+    <input type="file" id="imageInput" />
+    <div id="imagePreviewContainer">
+      <img id="imagePreview" alt="Uploaded Image Preview" />
+    </div>
+    <button id="generateButton">Generate ASCII Art</button>
+    <div id="asciiArtContainer">
+      <pre id="asciiArt"></pre>
+    </div>
+    <button id="copyButton" onclick="copyAsciiArt()">Copy Output</button>
+
+    <script src="app.js"></script>
+  </body>
+</html>
