@@ -37,3 +37,13 @@ input[type="file"] {
   display: inline-block;
   text-align: left; /* Align the text to the left */
 }
+
+#generateButton {
+  margin-top: 10px;
+}
+
+#resolutionSlider {
+  width: 100%;
+  display: block;
+  margin-top: 10px;
+}
