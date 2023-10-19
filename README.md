@@ -1,6 +1,8 @@
 # ascii-art
 
-funny ascii art generator
+Ascii art generator
+
+License: MIT
 
 ## contributors
 
