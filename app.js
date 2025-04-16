@@ -55,7 +55,13 @@ document.getElementById("copyButton").addEventListener("click", function () {
   selection.removeAllRanges();
   selection.addRange(range);
 
-  document.execCommand("copy");
+  navigator.clipboard.writeText(asciiArt.textContent)
+    .then(() => {
+      alert("Output copied to clipboard!");
+    })
+    .catch(err => {
+      console.error("Failed to copy text: ", err);
+    });
   selection.removeAllRanges();
 
   alert("Output copied to clipboard!");
@@ -67,8 +73,11 @@ function generateAsciiArt(image) {
   const maxWidth = 100;
   const maxHeight = 100;
 
-  // Calculate the aspect ratio for resizing the image
-  const aspectRatio = image.width / image.height;
+  // Use naturalWidth/naturalHeight for JPGs with EXIF orientation
+  const imgWidth = image.naturalWidth || image.width;
+  const imgHeight = image.naturalHeight || image.height;
+  const aspectRatio = imgWidth / imgHeight;
+
   let newWidth = maxWidth;
   let newHeight = newWidth / aspectRatio;
 
@@ -77,8 +86,13 @@ function generateAsciiArt(image) {
     newWidth = newHeight * aspectRatio;
   }
 
+  // Ensure dimensions are integers
+  newWidth = Math.floor(newWidth);
+  newHeight = Math.floor(newHeight);
+
+  // Double the height for square-like characters
   canvas.width = newWidth;
-  canvas.height = newHeight * 2; // Double the height for square-like characters
+  canvas.height = newHeight * 2;
   context.drawImage(image, 0, 0, newWidth, newHeight);
 
   const imageData = context.getImageData(0, 0, newWidth, newHeight).data;
@@ -94,7 +108,7 @@ function generateAsciiArt(image) {
       const asciiChar = getAsciiChar(grayValue);
       asciiArt += asciiChar;
     }
-    asciiArt += "\n"; // Add a newline after each row of ASCII characters
+    asciiArt += "\n"; // Newline for each row
   }
 
   return asciiArt;
